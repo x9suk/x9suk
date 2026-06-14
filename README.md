@@ -119,16 +119,6 @@ const grim = {
 
 ---
 
-## 🎵 Now Playing
-
-<div align="center">
-  <a href="https://open.spotify.com/user/31763fowm2nbb6pmhhm7dmcxpmee">
-    <img src="https://spotify-recently-played-readme.vercel.app/api?user=31763fowm2nbb6pmhhm7dmcxpmee&count=1&width=600&unique=true" alt="Spotify" />
-  </a>
-</div>
-
----
-
 <div align="center">
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Quote" />
 </div>
