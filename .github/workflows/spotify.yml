@@ -1,0 +1,66 @@
+name: Spotify Now Playing
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Update README with Spotify
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+        run: |
+          TOKEN=$(curl -s -X POST "https://accounts.spotify.com/api/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "grant_type=refresh_token&refresh_token=$SPOTIFY_REFRESH_TOKEN&client_id=$SPOTIFY_CLIENT_ID&client_secret=$SPOTIFY_CLIENT_SECRET" | \
+            node -e "process.stdin.on('data',d=>console.log(JSON.parse(d).access_token))")
+
+          NOW=$(curl -s -H "Authorization: Bearer $TOKEN" "https://api.spotify.com/v1/me/player/currently-playing")
+          SONG=$(echo "$NOW" | node -e "
+            process.stdin.on('data', d => {
+              try {
+                const j = JSON.parse(d);
+                if (!j || !j.item) { console.log('none'); return; }
+                const name = j.item.name.replace(/'/g, '\\'').replace(/"/g, '');
+                const artist = j.item.artists.map(a => a.name).join(', ').replace(/'/g, '\\'').replace(/"/g, '');
+                const url = j.item.external_urls.spotify;
+                console.log(JSON.stringify({name, artist, url}));
+              } catch(e) { console.log('none'); }
+            });
+          ")
+
+          if [ "$SONG" != "none" ] && [ -n "$SONG" ]; then
+            NAME=$(echo "$SONG" | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d).name))")
+            ARTIST=$(echo "$SONG" | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d).artist))")
+            URL=$(echo "$SONG" | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d).url))")
+
+            node -e "
+              const fs = require('fs');
+              let md = fs.readFileSync('README.md','utf8');
+              const section = '## 🎵 Now Playing\\n\\n<div align=\"center\">\\n  <a href=\"$URL\">\\n    <img src=\"https://img.shields.io/badge/▶️  Now_Playing-$NAME%20%E2%80%94%20$ARTIST-1DB954?style=for-the-badge&logo=spotify&logoColor=white\" alt=\"Spotify\" />\\n  </a>\\n</div>\\n\\n---';
+              if (md.includes('## 🎵 Now Playing')) {
+                md = md.replace(/## 🎵 Now Playing[\\s\\S]*?---/, section);
+              } else {
+                const ins = md.lastIndexOf('---');
+                md = md.slice(0, ins) + section + md.slice(ins);
+              }
+              fs.writeFileSync('README.md', md);
+            "
+          fi
+      - name: Commit & Push
+        run: |
+          git config user.name "x9suk"
+          git config user.email "ashish.weplay@gmail.com"
+          git diff --quiet README.md || {
+            git add README.md
+            git commit -m "🎵 update now playing"
+            git push
+          }
