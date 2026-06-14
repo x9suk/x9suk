@@ -9,7 +9,7 @@
 <br/>
 
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=x9suk&theme=radical&no-frame=true&no-bg=true&row=2&column=4&margin-w=15&margin-h=15" alt="Trophies" />
+  <img src="https://github-profile-trophy.vercel.app/?username=x9suk&theme=onedark&no-frame=true&no-bg=true&row=2&column=4&margin-w=10&margin-h=10" alt="Trophies" />
 </div>
 
 <br/>
@@ -145,17 +145,9 @@ const grim = {
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Microphone.png" alt="Music" width="25" /> Now Playing
 
-<div align="center">
-  <a href="https://open.spotify.com/user/31763fowm2nbb6pmhhm7dmcxpmee">
-    <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=31763fowm2nbb6pmhhm7dmcxpmee&cover_image=true&theme=novatorem&show_offline=false&background_color=0d1117&interchange=true&bar_color=7C3AED&bar_color_cover=true" alt="Spotify" />
-  </a>
-</div>
 
----
-
-<div align="center">
+---<div align="center">
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Quote" />
 </div>
 
