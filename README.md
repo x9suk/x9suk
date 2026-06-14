@@ -21,8 +21,8 @@
 > *"I probably automate things before doing them manually"*
 
 ```yaml
-name: Grim
-aliases: [x9suk, Slagop-Dev]
+name: Dusk
+aliases: [x9suk]
 location: India
 current_focus:
   - Advanced Discord Bots
