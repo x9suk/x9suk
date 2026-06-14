@@ -145,15 +145,23 @@ const grim = {
 
 ---
 
+## 🎵 Now Playing
 
+<div align="center">
+  <a href="https://open.spotify.com/user/31763fowm2nbb6pmhhm7dmcxpmee">
+    <img src="https://spotify-recently-played-readme.vercel.app/api?user=31763fowm2nbb6pmhhm7dmcxpmee&count=1&width=600&unique=true" alt="Spotify" />
+  </a>
+</div>
 
----<div align="center">
+---
+
+<div align="center">
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Quote" />
 </div>
 
 <div align="center">
 
-### ⚡ *"Code is like humor. When you have to explain it, it's bad."* — Cory House
+### ⚡ *"Code is like humor. When you have to explain it, it's wrong."* — Cory House
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=120&section=footer&text=Thanks%20for%20visiting!%20%F0%9F%9A%80&fontSize=24&fontColor=ffffff" width="100%" alt="Footer" />
 
